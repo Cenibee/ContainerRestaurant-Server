@@ -10,6 +10,7 @@ import container.restaurant.server.domain.user.UserService;
 import container.restaurant.server.exception.ResourceNotFoundException;
 import container.restaurant.server.web.base.BaseMockTest;
 import container.restaurant.server.web.dto.comment.CommentCreateDto;
+import container.restaurant.server.web.dto.comment.CommentInfoDto;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -123,6 +124,31 @@ class CommentServiceTest2 extends BaseMockTest {
         assertThatThrownBy(() -> commentService.findById(targetId))
                 .isExactlyInstanceOf(ResourceNotFoundException.class);
     }
+
+    @Test
+    @DisplayName("피드의 댓글 조회 테스트")
+    void 피드의_댓글_조회_테스트() {
+        //given
+        long feedId = 1L;
+        Feed feed = makeEntity(feedId, () -> Feed.builder().build());
+
+        long noReplyId = 2L;
+        Comment normalComment = makeEntity(noReplyId,
+                () -> Comment.builder().build());
+
+        long hasReplyId = 3L;
+        Comment hasReplyComment = makeEntity(hasReplyId,
+                () -> Comment.builder().build());
+
+        long replyId = 4L;
+        Comment replyComment = makeEntity(replyId,
+                () -> Comment.builder().build());
+
+        //when
+
+        //then
+    }
+
 
     // TODO 추가 구현이 필요하다.
 

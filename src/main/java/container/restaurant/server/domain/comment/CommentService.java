@@ -43,6 +43,7 @@ public class CommentService {
                 .ifPresent(upperReplyId -> comment.isBelongTo(findById(upperReplyId)));
 
         feed.commentCountUp();
+        // TODO publisher 를 래핑한 Service 계층을 만드는게 어떨까?
         publisher.publishEvent(new FeedCommentedEvent(comment));
 
         return comment.getId();
@@ -66,6 +67,9 @@ public class CommentService {
         LinkedHashMap<Long, CommentInfoDto> commentDtoMap = new LinkedHashMap<>();
 
         List<Comment> commentList = commentRepository.findAllByFeed(feed);
+
+//        //TODO 댓글 List 를 가져오고, 내부 답댓글 List 를 JPQL 한방으로 가져오도록 개선
+//        List<Comment> commentList = commentRepository.findAllByFeedId(feedId);
 
         Set<Long> likeIds = ofNullable(userId)
                 .map(id -> commentLikeRepository.test(id, commentList))
